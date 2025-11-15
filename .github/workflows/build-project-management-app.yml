@@ -242,34 +242,34 @@ jobs:
       matrix:
         route:
           # Auth routes
-          - { id: "route-auth-register", method: "POST", path: "/api/auth/register", desc: "User registration" }
-          - { id: "route-auth-login", method: "POST", path: "/api/auth/login", desc: "User login" }
-          - { id: "route-auth-logout", method: "POST", path: "/api/auth/logout", desc: "User logout" }
-          - { id: "route-auth-refresh", method: "POST", path: "/api/auth/refresh", desc: "Refresh token" }
+          - { id: "route-auth-register", method: "POST", methodLower: "post", path: "/api/auth/register", desc: "User registration" }
+          - { id: "route-auth-login", method: "POST", methodLower: "post", path: "/api/auth/login", desc: "User login" }
+          - { id: "route-auth-logout", method: "POST", methodLower: "post", path: "/api/auth/logout", desc: "User logout" }
+          - { id: "route-auth-refresh", method: "POST", methodLower: "post", path: "/api/auth/refresh", desc: "Refresh token" }
           
           # User routes
-          - { id: "route-users-list", method: "GET", path: "/api/users", desc: "List all users" }
-          - { id: "route-users-get", method: "GET", path: "/api/users/:id", desc: "Get user by ID" }
-          - { id: "route-users-update", method: "PUT", path: "/api/users/:id", desc: "Update user" }
-          - { id: "route-users-delete", method: "DELETE", path: "/api/users/:id", desc: "Delete user" }
+          - { id: "route-users-list", method: "GET", methodLower: "get", path: "/api/users", desc: "List all users" }
+          - { id: "route-users-get", method: "GET", methodLower: "get", path: "/api/users/:id", desc: "Get user by ID" }
+          - { id: "route-users-update", method: "PUT", methodLower: "put", path: "/api/users/:id", desc: "Update user" }
+          - { id: "route-users-delete", method: "DELETE", methodLower: "delete", path: "/api/users/:id", desc: "Delete user" }
           
           # Project routes
-          - { id: "route-projects-create", method: "POST", path: "/api/projects", desc: "Create project" }
-          - { id: "route-projects-list", method: "GET", path: "/api/projects", desc: "List projects" }
-          - { id: "route-projects-get", method: "GET", path: "/api/projects/:id", desc: "Get project" }
-          - { id: "route-projects-update", method: "PUT", path: "/api/projects/:id", desc: "Update project" }
-          - { id: "route-projects-delete", method: "DELETE", path: "/api/projects/:id", desc: "Delete project" }
+          - { id: "route-projects-create", method: "POST", methodLower: "post", path: "/api/projects", desc: "Create project" }
+          - { id: "route-projects-list", method: "GET", methodLower: "get", path: "/api/projects", desc: "List projects" }
+          - { id: "route-projects-get", method: "GET", methodLower: "get", path: "/api/projects/:id", desc: "Get project" }
+          - { id: "route-projects-update", method: "PUT", methodLower: "put", path: "/api/projects/:id", desc: "Update project" }
+          - { id: "route-projects-delete", method: "DELETE", methodLower: "delete", path: "/api/projects/:id", desc: "Delete project" }
           
           # Task routes
-          - { id: "route-tasks-create", method: "POST", path: "/api/tasks", desc: "Create task" }
-          - { id: "route-tasks-list", method: "GET", path: "/api/tasks", desc: "List tasks" }
-          - { id: "route-tasks-get", method: "GET", path: "/api/tasks/:id", desc: "Get task" }
-          - { id: "route-tasks-update", method: "PUT", path: "/api/tasks/:id", desc: "Update task" }
-          - { id: "route-tasks-delete", method: "DELETE", path: "/api/tasks/:id", desc: "Delete task" }
+          - { id: "route-tasks-create", method: "POST", methodLower: "post", path: "/api/tasks", desc: "Create task" }
+          - { id: "route-tasks-list", method: "GET", methodLower: "get", path: "/api/tasks", desc: "List tasks" }
+          - { id: "route-tasks-get", method: "GET", methodLower: "get", path: "/api/tasks/:id", desc: "Get task" }
+          - { id: "route-tasks-update", method: "PUT", methodLower: "put", path: "/api/tasks/:id", desc: "Update task" }
+          - { id: "route-tasks-delete", method: "DELETE", methodLower: "delete", path: "/api/tasks/:id", desc: "Delete task" }
           
           # Comment routes
-          - { id: "route-comments-create", method: "POST", path: "/api/comments", desc: "Create comment" }
-          - { id: "route-comments-list", method: "GET", path: "/api/comments", desc: "List comments" }
+          - { id: "route-comments-create", method: "POST", methodLower: "post", path: "/api/comments", desc: "Create comment" }
+          - { id: "route-comments-list", method: "GET", methodLower: "get", path: "/api/comments", desc: "List comments" }
     
     steps:
       - uses: actions/checkout@v4
@@ -294,7 +294,7 @@ jobs:
            * ${{ matrix.route.desc }}
            * ${{ matrix.route.method }} ${{ matrix.route.path }}
            */
-          router.${{ matrix.route.method | lower }}('${{ matrix.route.path }}', authenticate, async (req: Request, res: Response) => {
+          router.${{ matrix.route.methodLower }}('${{ matrix.route.path }}', authenticate, async (req: Request, res: Response) => {
             try {
               // Implementation for ${{ matrix.route.desc }}
               res.json({ message: '${{ matrix.route.desc }} endpoint', route: '${{ matrix.route.id }}' });
